@@ -24,9 +24,8 @@ int main()
     {7,1, 0, 0},
     {1,2, 0, 0}
   };        
-  string line;
-  vector<int> treesCount(slopes.size());
 
+  string line;
   int currentDown = 0;
   while (getline(myfile, line))
   {
