@@ -33,11 +33,11 @@ namespace day2
               minCol += (maxCol-minCol) / 2;
           }
 
-          if (maxRow * 8 + maxCol > max)
-            max = maxRow * 8 + maxCol;
-
-          ids.Add(max = maxRow * 8 + maxCol);
+          ids.Add(maxRow * 8 + maxCol);
         }
+
+        Console.WriteLine(ids.Max());
+
         ids.Sort();
 
         int current = ids[0];
@@ -49,7 +49,6 @@ namespace day2
             Console.WriteLine(ids[i]-1);
             break;
           }
-
         }
           
       }
