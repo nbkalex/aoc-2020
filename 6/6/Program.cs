@@ -13,7 +13,7 @@ namespace day2
     static void Main(string[] args)
     {
       string content = File.ReadAllText("TextFile1.txt");
-      Console.WriteLine(content.Split("\r\n\r\n").Sum(g => new HashSet<char>(g.Replace("\r\n", "")).Count()));
+      Console.WriteLine(content.Split("\r\n\r\n").Sum(g => g.Replace("\r\n", "").Distinct().Count()));
       Console.WriteLine(content.Split("\r\n\r\n").Sum(g => g.Split("\r\n").Aggregate((r, g1) => new string(r.Intersect(g1).ToArray())).Count() ));
     }
   }
