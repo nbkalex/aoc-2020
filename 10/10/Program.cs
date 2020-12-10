@@ -18,28 +18,13 @@ namespace day2
         .Select(line => long.Parse(line))
         .OrderBy(n => n)
         .ToList();
-      numbers.Insert(0, 0);
-      numbers.Add(numbers.Last() + 3);
-      List<List<long>> groups = new List<List<long>>() { new List<long>() };
-      for (int i = 0; i < numbers.Count-1; i++)
-      {
-        groups.Last().Add(numbers[i]);
 
-        if (numbers[i + 1] - numbers[i] != 1)
-          groups.Add(new List<long>());
-      }
-
-      long res = 1;
-      foreach (var g in groups)
-      {
-        if (g.Count == 3)
-          res *= 2;
-        if (g.Count == 4)
-          res *= 4;
-
-        if (g.Count > 4)
-          res *= 4 * (g.Count - 4 + 1) - (g.Count - 4);
-      }
+      var res = numbers.Select((n, i) => i < numbers.Count - 1 ? numbers[i + 1] - n : 3)
+        .Select((n, i) => new { i, n })
+        .Aggregate(numbers.First().ToString(), (acc, n) => acc + n.n.ToString())
+        .Split('3', StringSplitOptions.RemoveEmptyEntries)
+        .Where(g => g.Length > 1)
+        .Aggregate((long)1, (acc, g) => g.Length == 2 ? acc * 2 :  acc * (4 * (g.Length - 2) - (g.Length - 3)));
 
       Console.WriteLine(res);
     }
