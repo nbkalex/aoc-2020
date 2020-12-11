@@ -19,8 +19,8 @@ namespace day2
         .OrderBy(n => n)
         .ToList();
 
-      var res = numbers.Select((n, i) => i > 0 ? n - numbers[i-1] : n)                                              // diffs                                                                           // as string            
-        .Aggregate("", (acc, n) => acc + n.ToString())                                                              // as string
+      var res = numbers.Skip(1).Zip(numbers).Select(n => n.First - n.Second)                                        // diffs                                                                           // as string            
+        .Aggregate(numbers.First().ToString(), (acc, n) => acc + n.ToString())                                      // as string
         .Split('3')                                                                                                 // group of 1
         .Where(g => g.Length > 1)                                                                                   // exclude irelevand groups
         .Aggregate((long)1, (acc, g) => g.Length == 2 ? acc * 2 :  acc * (4 * (g.Length - 2) - (g.Length - 3)));    // compute value
