@@ -22,7 +22,7 @@ namespace day2
       var res = numbers.Select((n, i) => i < numbers.Count - 1 ? numbers[i + 1] - n : 3)
         .Select((n, i) => new { i, n })
         .Aggregate(numbers.First().ToString(), (acc, n) => acc + n.n.ToString())
-        .Split('3', StringSplitOptions.RemoveEmptyEntries)
+        .Split('3')
         .Where(g => g.Length > 1)
         .Aggregate((long)1, (acc, g) => g.Length == 2 ? acc * 2 :  acc * (4 * (g.Length - 2) - (g.Length - 3)));
 
