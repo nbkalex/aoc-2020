@@ -48,7 +48,7 @@ namespace day2
 
       Console.WriteLine(sum);
     }
-     
+
     static Dictionary<string, Dictionary<string, int>> mapped = new Dictionary<string, Dictionary<string, int>>();
 
     static bool Match(List<Tuple<string, string>> rules, ref string toMatch, string currentRule, string initial)
@@ -72,20 +72,18 @@ namespace day2
         foreach (var r in currentRules)
         {
           string currentRuleValue = rules.FirstOrDefault(r2 => r2.Item1 == r).Item2;
-          if (toMatchCopy == "")
-            break;
-
           bool res = Match(rules, ref toMatchCopy, currentRuleValue, initial);
+          if (toMatchCopy == "")
+          {
+            if (!"8 11".Contains(r) && currentRules.ToList().IndexOf(r) != currentRules.Length - 1)
+              return false;
+            break;
+          }
           if (!res)
           {
             matched = false;
             break;
           }
-
-          //if (toMatch == "")
-          //{
-          //  if (cpy == initial && )
-          //}
         }
 
         if (matched)
