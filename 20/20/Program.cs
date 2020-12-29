@@ -49,8 +49,8 @@ namespace day2
       HashSet<int> visited = new HashSet<int>();
       toVisit.Push(neighbours.FirstOrDefault(n => n.Value.Count == 2).Key);
 
-      Dictionary<int, Point> drawing = new Dictionary<int, Point>() { { toVisit.First(), new Point(120, 120) } };
-      PrintTile(tiles[toVisit.First()], drawing.First().Value);
+      Dictionary<int, Point> drawing = new Dictionary<int, Point>() { { toVisit.First(), new Point(0, 0) } };
+      //PrintTile(tiles[toVisit.First()], drawing.First().Value);
       while (toVisit.Count > 0)
       {
         int current = toVisit.Pop();
@@ -76,7 +76,7 @@ namespace day2
             draw.X += tiles[nFound].First().Length;
 
           drawing.Add(nFound, draw);
-          PrintTile(tiles[nFound], draw);
+          //PrintTile(tiles[nFound], draw);
         }
 
         foreach (var n in neighbours[current])
@@ -207,33 +207,30 @@ namespace day2
     static List<string> GetNeighbourTile(List<string> neighbour, string edge, int index)
     {
       var res = neighbour.ToList();
-      var edges = GetEdges(res);
-      if (edges.Contains(edge) && EdgeMatch[index] == edges.IndexOf(edge))
-        return res;
 
-      foreach (var op in Operations)
+      foreach ( var op  in Operations)
       {
         if (op != null)
           res = op(res);
 
         foreach (var op2 in Operations)
         {
-          if (op != null)
-            res = op(res);
+          if (op2 != null)
+            res = op2(res);
 
           foreach (var op3 in Operations)
           {
-            if (op != null)
-              res = op(res);
+            if (op3 != null)
+              res = op3(res);
 
-            edges = GetEdges(res);
+            var edges = GetEdges(res);
             if (edges.Contains(edge) && EdgeMatch[index] == edges.IndexOf(edge))
               return res;
           }
         }
       }
 
-      return res;
+      throw new Exception("not found");
     }
 
     static List<string> GetEdges(List<string> tile)
